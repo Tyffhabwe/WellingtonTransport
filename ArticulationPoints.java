@@ -28,13 +28,6 @@ public class ArticulationPoints{
         Set<Stop> articulationPoints = new HashSet<Stop>();
 
 
-
-
-
-
-
-
-
         return articulationPoints;
     }
 

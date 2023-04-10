@@ -22,23 +22,13 @@ public class AStar {
 
     private static String timeOrDistance = "distance";    // way of calculating cost: "time" or "distance"
 
-
-
     // find the shortest path between two stops
     public static List<Edge> findShortestPath(Stop start, Stop goal, String timeOrDistance) {
         if (start == null || goal == null) {return null;}
         timeOrDistance= (timeOrDistance.equals("time"))?"time":"distance";
 
-
-
         return null;   // fix this!!!
     }
-
-
-
-
-
-
 
     /** Return the heuristic estimate of the cost to get from a stop to the goal */
     public static double heuristic(Stop current, Stop goal) {

@@ -42,7 +42,7 @@ public class Graph {
         createAndConnectEdges();
         computeNeighbours();
 
-        // printGraphData();   // you could uncomment this to help in debugging your code
+        printGraphData();   // you could uncomment this to help in debugging your code
     }
 
 
@@ -75,9 +75,41 @@ public class Graph {
      */
     private void createAndConnectEdges() {
         // TODO
+        //go through lines list and add forward edge
+        for(Line currentLine: lines) {
 
+            List<Stop> currentStopList = currentLine.getStops();
+            List<Integer> currentTimeList = currentLine.getTimes();
+            String currentTranspType = currentLine.getType();
+            int numStops = currentLine.getStops().size();
 
+            for(int i = 0; i < numStops - 1; i++) {
+                Stop currentStop = currentStopList.get(i);
+                Stop nextStop = currentStopList.get(i + 1);
+                double currentTime = currentTimeList.get(i);
+                double currentDistance = currentStop.distanceTo(nextStop);
 
+                Edge forwardEdge =
+                        new Edge(currentStop, nextStop, currentTranspType, currentLine, currentTime, currentDistance);
+                currentStop.addForwardEdge(forwardEdge);
+                edges.add(forwardEdge);
+            }
+
+            for(int i = numStops - 1; i > 1; i--) {
+                Stop currentStop = currentStopList.get(i);
+                Stop stopBehind = currentStopList.get(i - 1);
+                double currentTime = currentTimeList.get(i);
+                double currentDistance = currentStop.distanceTo(stopBehind);
+
+                Edge backwardEdge =
+                        new Edge(currentStop, stopBehind, currentTranspType, currentLine, currentTime, currentDistance);
+
+                System.out.println("HI");
+                currentStop.addBackwardEdge(backwardEdge);
+                edges.add(backwardEdge);
+            }
+
+        }
     }
 
     /** 
@@ -88,6 +120,13 @@ public class Graph {
      */
     public void computeNeighbours(){
         // TODO
+        for(Edge edge: edges) {
+            Stop fromStop = edge.fromStop();
+            Stop toStop = edge.toStop();
+
+            fromStop.addNeighbour(toStop);
+            toStop.addNeighbour(fromStop);
+        }
 
 
     }
@@ -107,12 +146,35 @@ public class Graph {
      */
     public void recomputeWalkingEdges(double walkingDistance) {
         int count = 0;
-        // TODO
 
+        for(Stop stop1: stops) {
 
+            for(Stop stop2: stops) {
+                double stopsDistance = stop1.distanceTo(stop2);
+                if(stopsDistance <= walkingDistance) {
+                    //Do the node stuff
 
+                    String transpType = Transport.WALKING;
 
+                    Edge stop1toStop2 =
+                            new Edge(stop1, stop2, transpType, null, 0, stopsDistance);
+                    Edge stop2toStop1 =
+                            new Edge(stop2, stop1, transpType, null, 0, stopsDistance);
 
+                    count++;
+                    count++;
+
+                    stop1.addForwardEdge(stop1toStop2);
+                    stop1.addBackwardEdge(stop2toStop1);
+
+                    stop2.addForwardEdge(stop2toStop1);
+                    stop2.addBackwardEdge(stop1toStop2);
+
+                    edges.add(stop1toStop2);
+                    edges.add(stop2toStop1);
+                }
+            }
+        }
 
         System.out.println("Number of walking edges added: " + count);
     }
