@@ -42,7 +42,10 @@ public class Graph {
         createAndConnectEdges();
         computeNeighbours();
 
-        printGraphData();   // you could uncomment this to help in debugging your code
+        //printGraphData();   // you could uncomment this to help in debugging your code
+
+        System.out.println("TESTING RECONSTRUCT PATH!\n");
+        AStar.testReconstructPath();
     }
 
 
@@ -104,7 +107,6 @@ public class Graph {
                 Edge backwardEdge =
                         new Edge(currentStop, stopBehind, currentTranspType, currentLine, currentTime, currentDistance);
 
-                System.out.println("HI");
                 currentStop.addBackwardEdge(backwardEdge);
                 edges.add(backwardEdge);
             }
