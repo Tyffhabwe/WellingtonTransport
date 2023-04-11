@@ -44,8 +44,8 @@ public class Graph {
 
         //printGraphData();   // you could uncomment this to help in debugging your code
 
-        System.out.println("TESTING RECONSTRUCT PATH!\n");
-        AStar.testReconstructPath();
+        System.out.println("TESTING A STAR ALG \n");
+        AStar.testAStarAlgorithm();
     }
 
 
