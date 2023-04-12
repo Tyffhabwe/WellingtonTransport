@@ -39,6 +39,9 @@ public class Components{
         }
 
         graph.setSubGraphCount(componentNum);
+
+        System.out.println("TEST FOR ARTICULATION POINTS IS HERE!\n");
+        ArticulationPoints.testArticulationPoints();
     }
 
     /** Helper method to forward visit the nodes in algorithm */

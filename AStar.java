@@ -37,7 +37,6 @@ public class AStar {
                 backPointers.put(currentStop, currentItem.backPointer());
 
                 if(currentStop.equals(goal)) {
-                    System.out.println("COUNT OF FRINGE: " + count);
                     return reconstructPath(start, goal, backPointers);
                 }
 
@@ -57,7 +56,7 @@ public class AStar {
                 }
             }
         }
-        //TODO: THOW A EXCEPTION HERE INSTEAD?
+        //TODO: THROW A EXCEPTION HERE INSTEAD?
         return null;
     }
 
