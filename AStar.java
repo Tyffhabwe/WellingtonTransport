@@ -98,12 +98,12 @@ public class AStar {
 
     public static void testReconstructPath() {
 
-        Stop nowhere = new Stop(0, 0, "NOWHERE", null);
-        Stop s = new Stop(0, 0, "S", null);
-        Stop b = new Stop(0, 0, "B", null);
-        Stop c = new Stop(0, 0, "C", null);
-        Stop e = new Stop(0, 0, "E", null);
-        Stop g = new Stop(0, 0, "G", null);
+        Stop nowhere = new Stop(0, 0, "NOWHERE", "NOWHERE");
+        Stop s = new Stop(0, 0, "S", "S");
+        Stop b = new Stop(0, 0, "B", "B");
+        Stop c = new Stop(0, 0, "C", "C");
+        Stop e = new Stop(0, 0, "E", "E");
+        Stop g = new Stop(0, 0, "G", "G");
 
 
         Edge startingEdge = new Edge(nowhere, s, "START", null, 0, 0);
@@ -126,12 +126,12 @@ public class AStar {
     public static void testAStarAlgorithm() {
 
         //Create the stops based off 2018 exam question
-        Stop s = new Stop(2.24, 2.24, "S", null);
-        Stop b = new Stop(0, 3, "B", null);
-        Stop c = new Stop(1.4, 1.4, "C", null);
-        Stop d = new Stop(1, 0, "D", null);
-        Stop e = new Stop(0, 1, "E", null);
-        Stop g = new Stop(0, 0, "G", null);
+        Stop s = new Stop(2.24, 2.24, "S", "S");
+        Stop b = new Stop(0, 3, "B", "B");
+        Stop c = new Stop(1.4, 1.4, "C", "C");
+        Stop d = new Stop(1, 0, "D", "D");
+        Stop e = new Stop(0, 1, "E", "E");
+        Stop g = new Stop(0, 0, "G", "G");
 
         Edge s_to_c = new Edge(s, c, "bus", null, 2, 4);
         Edge s_to_b = new Edge(s, b, "bus", null, 1.5, 3);

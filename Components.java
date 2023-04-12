@@ -39,7 +39,6 @@ public class Components{
         }
 
         graph.setSubGraphCount(componentNum);
-        //System.out.println("Sub graph id starting from 0: " + componentNum);
     }
 
     /** Helper method to forward visit the nodes in algorithm */
@@ -65,7 +64,6 @@ public class Components{
     public static void backwardVisit(Stop stop, int componentNum) {
         if(stop.getSubGraphId() == -1) {
             stop.setSubGraphId(componentNum);
-            System.out.println("Setting " + stop.getName() + " to " + componentNum + ";\n");
 
             Collection<Edge> backEdges = stop.getBackwardEdges();
             List<Stop> backwardStops = new ArrayList<>();
@@ -85,18 +83,18 @@ public class Components{
      * Based off the lecture slides
      * */
     public static void testFindComponents() {
-        Stop a = new Stop(0, 0, "A", null);
-        Stop b = new Stop(0, 0, "B", null);
-        Stop c = new Stop(0, 0, "C", null);
-        Stop d = new Stop(0, 0, "D", null);
-        Stop e = new Stop(0, 0, "E", null);
+        Stop a = new Stop(0, 0, "A", "A");
+        Stop b = new Stop(0, 0, "B", "B");
+        Stop c = new Stop(0, 0, "C", "C");
+        Stop d = new Stop(0, 0, "D", "D");
+        Stop e = new Stop(0, 0, "E", "E");
 
-        Stop p = new Stop(0, 0, "P", null);
-        Stop q = new Stop(0, 0, "Q", null);
-        Stop r = new Stop(0, 0, "R", null);
-        Stop s = new Stop(0, 0, "S", null);
-        Stop t = new Stop(0, 0, "T", null);
-        Stop u = new Stop(0, 0, "U", null);
+        Stop p = new Stop(0, 0, "P", "P");
+        Stop q = new Stop(0, 0, "Q", "Q");
+        Stop r = new Stop(0, 0, "R", "R");
+        Stop s = new Stop(0, 0, "S", "S");
+        Stop t = new Stop(0, 0, "T", "T");
+        Stop u = new Stop(0, 0, "U", "U");
 
         Edge a_to_b = new Edge(a, b, "bus", null, 0, 0);
         Edge a_to_c = new Edge(a, c, "bus", null, 0, 0);
@@ -166,7 +164,6 @@ public class Components{
         Graph testGraph = new Graph(testStops, emptyLineList);
 
         findComponents(testGraph);
-        System.out.println("Made it here");
     }
 
 }

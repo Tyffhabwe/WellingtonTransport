@@ -79,7 +79,7 @@ public class Stop implements Comparable<Stop> {
      * Compare by alphabetic order of name,
      */
     public int compareTo(Stop other){
-        return this.name.compareTo(other.name);
+        return this.id.compareTo(other.id);
     }
 
 

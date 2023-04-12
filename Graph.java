@@ -92,21 +92,22 @@ public class Graph {
                 Edge forwardEdge =
                         new Edge(currentStop, nextStop, currentTranspType, currentLine, currentTime, currentDistance);
                 currentStop.addForwardEdge(forwardEdge);
+                nextStop.addBackwardEdge(forwardEdge);
                 edges.add(forwardEdge);
             }
 
-            for(int i = numStops - 1; i > 1; i--) {
-                Stop currentStop = currentStopList.get(i);
-                Stop stopBehind = currentStopList.get(i - 1);
-                double currentTime = currentTimeList.get(i);
-                double currentDistance = currentStop.distanceTo(stopBehind);
+            //The last item in the list needs some backward edges
+            Stop lastStop = currentStopList.get(numStops - 1);
+            Stop secondToLastStop = currentStopList.get(numStops - 2);
 
-                Edge backwardEdge =
-                        new Edge(currentStop, stopBehind, currentTranspType, currentLine, currentTime, currentDistance);
+            double lastTime = currentTimeList.get(numStops - 1);
+            double lastDistance = lastStop.distanceTo(secondToLastStop);
 
-                currentStop.addBackwardEdge(backwardEdge);
-                edges.add(backwardEdge);
-            }
+            Edge lastEdge =
+                    new Edge(secondToLastStop, lastStop, currentTranspType, currentLine, lastTime, lastDistance);
+
+            lastStop.addBackwardEdge(lastEdge);
+            edges.add(lastEdge);
 
         }
     }
