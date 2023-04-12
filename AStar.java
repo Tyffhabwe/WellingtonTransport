@@ -168,7 +168,6 @@ public class AStar {
         e.addForwardEdge(e_to_g);
 
         List<Edge> shortestPath = findShortestPath(s, g, "distance");
-        System.out.println("WE HERE!");
     }
 
 

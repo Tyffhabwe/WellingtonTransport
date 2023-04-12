@@ -43,9 +43,6 @@ public class Graph {
         computeNeighbours();
 
         //printGraphData();   // you could uncomment this to help in debugging your code
-
-        System.out.println("TESTING A STAR ALG \n");
-        AStar.testAStarAlgorithm();
     }
 
 

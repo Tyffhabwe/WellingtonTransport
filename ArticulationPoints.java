@@ -27,6 +27,8 @@ public class ArticulationPoints{
 
         Set<Stop> articulationPoints = new HashSet<Stop>();
 
+        //Testing connected components
+        Components.testFindComponents();
 
         return articulationPoints;
     }
