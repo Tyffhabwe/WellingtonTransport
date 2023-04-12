@@ -41,7 +41,7 @@ public class Components{
         graph.setSubGraphCount(componentNum);
 
         System.out.println("TEST FOR ARTICULATION POINTS IS HERE!\n");
-        ArticulationPoints.testArticulationPoints();
+        CustomTests.testArticulationPoints();
     }
 
     /** Helper method to forward visit the nodes in algorithm */
@@ -81,92 +81,6 @@ public class Components{
         }
     }
 
-    /**
-     * Helper method to test find components actually works
-     * Based off the lecture slides
-     * */
-    public static void testFindComponents() {
-        Stop a = new Stop(0, 0, "A", "A");
-        Stop b = new Stop(0, 0, "B", "B");
-        Stop c = new Stop(0, 0, "C", "C");
-        Stop d = new Stop(0, 0, "D", "D");
-        Stop e = new Stop(0, 0, "E", "E");
 
-        Stop p = new Stop(0, 0, "P", "P");
-        Stop q = new Stop(0, 0, "Q", "Q");
-        Stop r = new Stop(0, 0, "R", "R");
-        Stop s = new Stop(0, 0, "S", "S");
-        Stop t = new Stop(0, 0, "T", "T");
-        Stop u = new Stop(0, 0, "U", "U");
-
-        Edge a_to_b = new Edge(a, b, "bus", null, 0, 0);
-        Edge a_to_c = new Edge(a, c, "bus", null, 0, 0);
-
-        Edge b_to_c = new Edge(b, c, "bus", null, 0, 0);
-
-        Edge c_to_d = new Edge(c, d, "bus", null, 0, 0);
-        Edge c_to_p = new Edge(c, p, "bus", null, 0, 0);
-
-        Edge d_to_a = new Edge(d, a, "bus", null, 0, 0);
-        Edge d_to_e = new Edge(d, e, "bus", null, 0, 0);
-
-        //SECOND HALF
-        Edge p_to_s = new Edge(p, s, "bus", null, 0, 0);
-
-        Edge q_to_p = new Edge(q, p, "bus", null, 0, 0);
-        Edge q_to_t = new Edge(q, t, "bus", null, 0, 0);
-
-        Edge r_to_q = new Edge(r, q, "bus", null, 0, 0);
-
-        Edge s_to_r = new Edge(s, r, "bus", null, 0, 0);
-
-        Edge t_to_u = new Edge(t, u, "bus", null, 0, 0);
-
-        //Now add the pointers and stuff
-        a.addForwardEdge(a_to_b);
-        a.addForwardEdge(a_to_c);
-        a.addBackwardEdge(d_to_a);
-
-        b.addForwardEdge(b_to_c);
-        b.addBackwardEdge(a_to_b);
-
-        c.addForwardEdge(c_to_d);
-        c.addForwardEdge(c_to_p);
-        c.addBackwardEdge(a_to_c);
-        c.addBackwardEdge(b_to_c);
-
-        d.addForwardEdge(d_to_a);
-        d.addForwardEdge(d_to_e);
-        d.addBackwardEdge(c_to_d);
-
-        e.addBackwardEdge(d_to_e);
-
-        //NEXT HALF
-        p.addForwardEdge(p_to_s);
-        p.addBackwardEdge(c_to_p);
-        p.addBackwardEdge(q_to_p);
-
-        q.addForwardEdge(q_to_p);
-        q.addForwardEdge(q_to_t);
-        q.addBackwardEdge(r_to_q);
-
-        r.addForwardEdge(r_to_q);
-        r.addBackwardEdge(s_to_r);
-
-        s.addForwardEdge(s_to_r);
-        s.addBackwardEdge(p_to_s);
-
-        t.addForwardEdge(t_to_u);
-        t.addBackwardEdge(q_to_t);
-
-        u.addBackwardEdge(t_to_u);
-
-        List<Stop> testStops = List.of(a,b,c,d,e,p,q,r,s,t,u);
-        List<Line> emptyLineList = new ArrayList<>();
-
-        Graph testGraph = new Graph(testStops, emptyLineList);
-
-        findComponents(testGraph);
-    }
 
 }

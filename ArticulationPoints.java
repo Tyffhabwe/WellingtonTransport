@@ -71,56 +71,7 @@ public class ArticulationPoints{
         return reachBack;
     }
 
-    /**
-     * Helper method to test Articulation points
-     */
-    public static void testArticulationPoints() {
 
-        Stop a = new Stop(0, 0, "A", "A");
-        Stop b = new Stop(0, 0, "B", "B");
-        Stop c = new Stop(0, 0, "C", "C");
-        Stop d = new Stop(0, 0, "D", "D");
-        Stop e = new Stop(0, 0, "E", "E");
-        Stop f = new Stop(0, 0, "F", "F");
-        Stop g = new Stop(0, 0, "G", "G");
-        Stop h = new Stop(0, 0, "H", "H");
-
-        a.addNeighbour(b);
-        a.addNeighbour(e);
-
-        b.addNeighbour(a);
-        b.addNeighbour(e);
-        b.addNeighbour(c);
-        b.addNeighbour(h);
-
-        c.addNeighbour(d);
-        c.addNeighbour(b);
-
-        d.addNeighbour(c);
-        d.addNeighbour(e);
-
-        e.addNeighbour(a);
-        e.addNeighbour(b);
-        e.addNeighbour(d);
-
-        //SECOND HALF
-        h.addNeighbour(b);
-        h.addNeighbour(f);
-
-        f.addNeighbour(h);
-        f.addNeighbour(g);
-
-        g.addNeighbour(f);
-        g.addNeighbour(h);
-
-        List<Stop> testStops = List.of(a,b,c,d,e,f,g,h);
-        List<Line> emptyLineList = new ArrayList<>();
-        Graph testGraph = new Graph(testStops, emptyLineList);
-
-        List<Stop> ans = new ArrayList<>(findArticulationPoints(testGraph));
-        System.out.println(ans);
-
-    }
 
 
 
