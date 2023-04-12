@@ -47,12 +47,36 @@ public class CustomTests {
         e.addForwardEdge(e_to_g);
 
         List<Edge> shortestPath = AStar.findShortestPath(s, g, "distance");
+        List<Edge> correctAns = List.of(
+                s_to_c,
+                c_to_d,
+                d_to_g
+        );
+
+        boolean testPassed = false;
+        try {
+            testPassed = shortestPath.get(0).equals(s_to_c) &&
+                    shortestPath.get(1).equals(c_to_d) &&
+                    shortestPath.get(2).equals(d_to_g);
+        }
+        catch (Exception ignored) {}
+
+        System.out.println("===========================================");
+        System.out.println("A* Algorithm Test!");
+        if(testPassed) { System.out.println("Your A* algorithm works! :)"); }
+        else {
+            System.out.println("Your A* algorithm fails :(");
+            System.out.println("Expected output: " + correctAns);
+            System.out.println("Actual output: " + shortestPath);
+        }
+        System.out.println("===========================================\n");
     }
     public static void testReconstructPath() {
 
         Stop nowhere = new Stop(0, 0, "NOWHERE", "NOWHERE");
         Stop s = new Stop(0, 0, "S", "S");
         Stop b = new Stop(0, 0, "B", "B");
+        Stop d = new Stop(0, 0, "D", "D");
         Stop c = new Stop(0, 0, "C", "C");
         Stop e = new Stop(0, 0, "E", "E");
         Stop g = new Stop(0, 0, "G", "G");
@@ -63,16 +87,42 @@ public class CustomTests {
         Edge s_to_c = new Edge(s, c, "bus", null, 0, 0);
         Edge c_to_e = new Edge(c, e, "bus", null, 0, 0);
         Edge e_to_g = new Edge(e, g, "bus", null, 0, 0);
+        Edge c_to_d = new Edge(c, d, "bus", null, 0, 0);
+        Edge d_to_g = new Edge(d, g, "bus", null, 0, 0);
 
         Map<Stop, Edge> backPointers = Map.of(
                 s, startingEdge,
                 b, s_to_b,
                 c, s_to_c,
                 e, c_to_e,
-                g, e_to_g
+                d, c_to_d,
+                g, d_to_g
         );
 
         List<Edge> reconstructedPath = AStar.reconstructPath(s, g, backPointers);
+        List<Edge> correctAns = List.of(
+                s_to_c,
+                c_to_d,
+                d_to_g
+        );
+        boolean testPassed = false;
+
+        try {
+            testPassed = reconstructedPath.get(0).equals(s_to_c) &&
+                    reconstructedPath.get(1).equals(c_to_d) &&
+                    reconstructedPath.get(2).equals(d_to_g);
+        }
+        catch (Exception ignored) {}
+
+        System.out.println("===========================================");
+        System.out.println("Reconstructed Path Algorithm Test!");
+        if(testPassed) { System.out.println("Your reconstructed path algorithm works! :)"); }
+        else {
+            System.out.println("Your reconstructed path algorithm fails :(");
+            System.out.println("Expected output: " + correctAns);
+            System.out.println("Actual output: " + reconstructedPath);
+        }
+        System.out.println("===========================================");
     }
 
     /**
@@ -80,6 +130,8 @@ public class CustomTests {
      * Based off the lecture slides
      * */
     public static void testFindComponents() {
+        int CORRECT_NUMBER_OF_SUBGRAPHS = 5;
+
         Stop a = new Stop(0, 0, "A", "A");
         Stop b = new Stop(0, 0, "B", "B");
         Stop c = new Stop(0, 0, "C", "C");
@@ -159,8 +211,20 @@ public class CustomTests {
         List<Line> emptyLineList = new ArrayList<>();
 
         Graph testGraph = new Graph(testStops, emptyLineList);
-
         Components.findComponents(testGraph);
+        int numberOfSubGraphs = testGraph.getSubGraphCount();
+
+        boolean testPassed = numberOfSubGraphs == CORRECT_NUMBER_OF_SUBGRAPHS;
+
+        System.out.println("\n===========================================");
+        System.out.println("Find Components Algorithm Test!");
+        if(testPassed) { System.out.println("Your find components algorithm works! :)"); }
+        else {
+            System.out.println("Your find components algorithm fails :(");
+            System.out.println("Expected numOfSubGraphs: " +CORRECT_NUMBER_OF_SUBGRAPHS);
+            System.out.println("Actual numOfSubGraphs: " + numberOfSubGraphs);
+        }
+        System.out.println("===========================================\n");
     }
 
     /**
@@ -209,8 +273,28 @@ public class CustomTests {
         List<Line> emptyLineList = new ArrayList<>();
         Graph testGraph = new Graph(testStops, emptyLineList);
 
-        List<Stop> ans = new ArrayList<>(ArticulationPoints.findArticulationPoints(testGraph));
-        System.out.println(ans);
+        List<Stop> ourResult = new ArrayList<>(ArticulationPoints.findArticulationPoints(testGraph));
+        List<Stop> correctResult = List.of(
+                h,
+                b
+        );
+        boolean testPassed = ourResult.contains(h) && ourResult.contains(b);
 
+        System.out.println("\n===========================================");
+        System.out.println("Test Articulation Algorithm Test!");
+        if(testPassed) { System.out.println("Your test articulation algorithm works! :)"); }
+        else {
+            System.out.println("Your test articulations algorithm fails :(");
+            System.out.println("Expected output: " + correctResult);
+            System.out.println("Actual output: " + ourResult);
+        }
+        System.out.println("===========================================");
+    }
+
+    public static void main(String[] args) {
+        CustomTests.testReconstructPath();
+        CustomTests.testAStarAlgorithm();
+        CustomTests.testFindComponents();
+        CustomTests.testArticulationPoints();
     }
 }

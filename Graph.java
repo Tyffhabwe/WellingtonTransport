@@ -120,6 +120,21 @@ public class Graph {
      */
     public void computeNeighbours(){
         // TODO
+        for(Stop stop: stops) {
+            List<Edge> forwardEdges = new ArrayList<>(stop.getForwardEdges());
+            List<Edge> backwardEdges = new ArrayList<>(stop.getBackwardEdges());
+
+            for(Edge edge: forwardEdges) {
+                Stop toStop = edge.toStop();
+                stop.addNeighbour(toStop);
+            }
+
+            for(Edge edge: backwardEdges) {
+                Stop fromStop = edge.fromStop();
+                stop.addNeighbour(fromStop);
+            }
+        }
+        /**
         for(Edge edge: edges) {
             Stop fromStop = edge.fromStop();
             Stop toStop = edge.toStop();
@@ -127,6 +142,7 @@ public class Graph {
             fromStop.addNeighbour(toStop);
             toStop.addNeighbour(fromStop);
         }
+         */
 
 
     }
