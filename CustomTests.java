@@ -63,7 +63,7 @@ public class CustomTests {
 
         System.out.println("===========================================");
         System.out.println("A* Algorithm Test!");
-        if(testPassed) { System.out.println("Your A* algorithm works! :)"); }
+        if(testPassed) { System.out.println("Your A* algorithm works! (on a basic example at least) :)"); }
         else {
             System.out.println("Your A* algorithm fails :(");
             System.out.println("Expected output: " + correctAns);
@@ -116,7 +116,7 @@ public class CustomTests {
 
         System.out.println("===========================================");
         System.out.println("Reconstructed Path Algorithm Test!");
-        if(testPassed) { System.out.println("Your reconstructed path algorithm works! :)"); }
+        if(testPassed) { System.out.println("Your reconstructed path algorithm works! (on a basic example at least) :)"); }
         else {
             System.out.println("Your reconstructed path algorithm fails :(");
             System.out.println("Expected output: " + correctAns);
@@ -218,7 +218,7 @@ public class CustomTests {
 
         System.out.println("\n===========================================");
         System.out.println("Find Components Algorithm Test!");
-        if(testPassed) { System.out.println("Your find components algorithm works! :)"); }
+        if(testPassed) { System.out.println("Your find components algorithm works! (on a basic example at least) :)"); }
         else {
             System.out.println("Your find components algorithm fails :(");
             System.out.println("Expected numOfSubGraphs: " +CORRECT_NUMBER_OF_SUBGRAPHS);
@@ -282,7 +282,7 @@ public class CustomTests {
 
         System.out.println("\n===========================================");
         System.out.println("Test Articulation Algorithm Test!");
-        if(testPassed) { System.out.println("Your test articulation algorithm works! :)"); }
+        if(testPassed) { System.out.println("Your test articulation algorithm works! (on a basic example at least) :)"); }
         else {
             System.out.println("Your test articulations algorithm fails :(");
             System.out.println("Expected output: " + correctResult);
@@ -290,7 +290,6 @@ public class CustomTests {
         }
         System.out.println("===========================================");
     }
-
     public static void main(String[] args) {
         CustomTests.testReconstructPath();
         CustomTests.testAStarAlgorithm();
