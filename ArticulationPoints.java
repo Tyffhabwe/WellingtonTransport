@@ -78,13 +78,6 @@ public class ArticulationPoints{
 
     public static Set<Stop> getMeAllOfTheRootNodes(List<Stop> allStopsToFindRoots) {
         Set<Stop> ans = new HashSet<>();
-
-        /**
-        for(Stop stop: allStopsToFindRoots) {
-            ans.add(stop);
-            traverseAndRemoveAllConnectedStops(stop, new HashSet<>(), allStopsToFindRoots);
-        }
-         */
         while(!allStopsToFindRoots.isEmpty()) {
             Stop oneRoot = allStopsToFindRoots.get(0);
             ans.add(oneRoot);
