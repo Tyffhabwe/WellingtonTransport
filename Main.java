@@ -24,7 +24,6 @@ public class Main extends Application {
 
         // load the fxml file to set up the GUI
         reload();
-
     }
 
     // set locale function

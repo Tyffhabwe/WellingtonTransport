@@ -57,7 +57,8 @@ public class CustomTests {
         try {
             testPassed = shortestPath.get(0).equals(s_to_c) &&
                     shortestPath.get(1).equals(c_to_d) &&
-                    shortestPath.get(2).equals(d_to_g);
+                    shortestPath.get(2).equals(d_to_g) &&
+                    shortestPath.size() == 3;
         }
         catch (Exception ignored) {}
 
@@ -110,7 +111,8 @@ public class CustomTests {
         try {
             testPassed = reconstructedPath.get(0).equals(s_to_c) &&
                     reconstructedPath.get(1).equals(c_to_d) &&
-                    reconstructedPath.get(2).equals(d_to_g);
+                    reconstructedPath.get(2).equals(d_to_g) &&
+                    reconstructedPath.size() == 3;
         }
         catch (Exception ignored) {}
 
@@ -278,7 +280,8 @@ public class CustomTests {
                 h,
                 b
         );
-        boolean testPassed = ourResult.contains(h) && ourResult.contains(b);
+
+        boolean testPassed = ourResult.contains(h) && ourResult.contains(b) && ourResult.size() == 2;
 
         System.out.println("\n===========================================");
         System.out.println("Test Articulation Algorithm Test!");

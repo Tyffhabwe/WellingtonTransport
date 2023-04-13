@@ -37,7 +37,6 @@ public class Components{
                 componentNum++;
             }
         }
-
         graph.setSubGraphCount(componentNum);
     }
 

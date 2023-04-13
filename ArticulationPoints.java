@@ -28,25 +28,31 @@ public class ArticulationPoints{
         Set<Stop> articulationPoints = new HashSet<Stop>();
         Map<Stop, Integer> nodeDepths = new HashMap<Stop, Integer>();
         List<Stop> allStops = new ArrayList<>(graph.getStops());
+        List<Stop> allStopsToFindRoots = new ArrayList<>(graph.getStops());
 
         for(Stop stop: allStops) {
             nodeDepths.put(stop, Integer.MAX_VALUE);
         }
 
-        int numSubTrees = 0;
-        Stop start = allStops.get(0);
-        nodeDepths.put(start, 0);
+        Set<Stop> rootNodes = getMeAllOfTheRootNodes(allStopsToFindRoots);
 
-        for(Stop neighbour: start.getNeighbours()) {
-            int neighbourDepth = nodeDepths.get(neighbour);
-            if(neighbourDepth == Integer.MAX_VALUE) {
-                recursiveArtPts(neighbour, 1, start, articulationPoints, nodeDepths);
-                numSubTrees++;
+        for(Stop stop: rootNodes) {
+            int numSubTrees = 0;
+            nodeDepths.put(stop, 0);
+
+            for(Stop neighbour: stop.getNeighbours()) {
+                int neighbourDepth = nodeDepths.get(neighbour);
+                if(neighbourDepth == Integer.MAX_VALUE) {
+                    recursiveArtPts(neighbour, 1, stop, articulationPoints, nodeDepths);
+                    numSubTrees++;
+                }
             }
+            if(numSubTrees > 1) { articulationPoints.add(stop); }
         }
-        if(numSubTrees > 1) { articulationPoints.add(start); }
 
+        System.out.println("Articulation points size: " + articulationPoints.size());
         return articulationPoints;
+
     }
 
     public static int recursiveArtPts(Stop stop, int depth, Stop fromStop, Set<Stop> articulationPoints,
@@ -67,8 +73,39 @@ public class ArticulationPoints{
                 reachBack = Math.min(childReach, reachBack);
             }
         }
-
         return reachBack;
+    }
+
+    public static Set<Stop> getMeAllOfTheRootNodes(List<Stop> allStopsToFindRoots) {
+        Set<Stop> ans = new HashSet<>();
+
+        /**
+        for(Stop stop: allStopsToFindRoots) {
+            ans.add(stop);
+            traverseAndRemoveAllConnectedStops(stop, new HashSet<>(), allStopsToFindRoots);
+        }
+         */
+        while(!allStopsToFindRoots.isEmpty()) {
+            Stop oneRoot = allStopsToFindRoots.get(0);
+            ans.add(oneRoot);
+            traverseAndRemoveAllConnectedStops(oneRoot, new HashSet<>(), allStopsToFindRoots);
+        }
+
+        return ans;
+    }
+
+    public static void traverseAndRemoveAllConnectedStops(Stop node, Set<Stop> visited, List<Stop> allStopsToFindRoots) {
+        if(!visited.contains(node)) {
+            visited.add(node);
+            allStopsToFindRoots.remove(node);
+
+            for(Stop neighbour: node.getNeighbours()) {
+                if(!visited.contains(neighbour)) {
+                    traverseAndRemoveAllConnectedStops(neighbour, visited, allStopsToFindRoots);
+                }
+            }
+
+        }
     }
 
 

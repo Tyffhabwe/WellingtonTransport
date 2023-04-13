@@ -1,11 +1,7 @@
-import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.HashSet;
 
@@ -118,7 +114,7 @@ public class Graph {
      * from the forward and backward neighbour edges.
      * It may assume that there are no walking edges at this point.
      */
-    public void computeNeighbours(){
+    public void computeNeighbours() {
         // TODO
         for(Stop stop: stops) {
             List<Edge> forwardEdges = new ArrayList<>(stop.getForwardEdges());
@@ -134,17 +130,6 @@ public class Graph {
                 stop.addNeighbour(fromStop);
             }
         }
-        /**
-        for(Edge edge: edges) {
-            Stop fromStop = edge.fromStop();
-            Stop toStop = edge.toStop();
-
-            fromStop.addNeighbour(toStop);
-            toStop.addNeighbour(fromStop);
-        }
-         */
-
-
     }
 
     //=============================================================================
