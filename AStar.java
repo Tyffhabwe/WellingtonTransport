@@ -15,6 +15,7 @@ public class AStar {
     public static List<Edge> findShortestPath(Stop start, Stop goal, String timeOrDistance) {
         if (start == null || goal == null) {return null;}
         timeOrDistance= (timeOrDistance.equals("time"))?"time":"distance";
+        timeOrDistance="time";
 
         Map<Stop, Edge> backPointers = new HashMap<Stop, Edge>();
         Queue<PathItem> fringe = new PriorityQueue<PathItem>();
@@ -45,6 +46,9 @@ public class AStar {
 
                     if(!visited.contains(neighbourNode)) {
                         double lengthToNeighbour = edgeCost(nextNode);
+
+                        //I wanna add a cost to paths that are on a different edge
+
                         double heuristicValue = heuristic(neighbourNode, goal);
 
                         double costSoFar = lengthToNeighbour + currentItem.costSoFar();
