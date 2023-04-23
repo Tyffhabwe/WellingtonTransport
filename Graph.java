@@ -82,29 +82,17 @@ public class Graph {
             for(int i = 0; i < numStops - 1; i++) {
                 Stop currentStop = currentStopList.get(i);
                 Stop nextStop = currentStopList.get(i + 1);
-                double currentTime = currentTimeList.get(i);
+                double timeCurrentStop = currentTimeList.get(i);
+                double timeNextStop = currentTimeList.get(i + 1);
+                double timeDiff = timeNextStop - timeCurrentStop;
                 double currentDistance = currentStop.distanceTo(nextStop);
 
                 Edge forwardEdge =
-                        new Edge(currentStop, nextStop, currentTranspType, currentLine, currentTime, currentDistance);
+                        new Edge(currentStop, nextStop, currentTranspType, currentLine, timeDiff, currentDistance);
                 currentStop.addForwardEdge(forwardEdge);
                 nextStop.addBackwardEdge(forwardEdge);
                 edges.add(forwardEdge);
             }
-
-            //The last item in the list needs some backward edges
-            Stop lastStop = currentStopList.get(numStops - 1);
-            Stop secondToLastStop = currentStopList.get(numStops - 2);
-
-            double lastTime = currentTimeList.get(numStops - 1);
-            double lastDistance = lastStop.distanceTo(secondToLastStop);
-
-            Edge lastEdge =
-                    new Edge(secondToLastStop, lastStop, currentTranspType, currentLine, lastTime, lastDistance);
-
-            lastStop.addBackwardEdge(lastEdge);
-            edges.add(lastEdge);
-
         }
     }
 
@@ -151,33 +139,28 @@ public class Graph {
         for(Stop stop1: stops) {
 
             for(Stop stop2: stops) {
+                if(!stop1.equals(stop2)) {
                 double stopsDistance = stop1.distanceTo(stop2);
-                if(stopsDistance <= walkingDistance) {
-                    //Do the node stuff
+                double timeBetween = stopsDistance / Transport.WALKING_SPEED_MPS;
+                    if(stopsDistance <= walkingDistance) {
+                        //Do the node stuff
+                        String transpType = Transport.WALKING;
+                        Edge stop1toStop2 =
+                                new Edge(stop1, stop2, transpType, null, timeBetween, stopsDistance);
+                        count++;
 
-                    String transpType = Transport.WALKING;
+                        stop1.addForwardEdge(stop1toStop2);
 
-                    Edge stop1toStop2 =
-                            new Edge(stop1, stop2, transpType, null, 0, stopsDistance);
-                    Edge stop2toStop1 =
-                            new Edge(stop2, stop1, transpType, null, 0, stopsDistance);
+                        stop2.addBackwardEdge(stop1toStop2);
 
-                    count++;
-                    count++;
-
-                    stop1.addForwardEdge(stop1toStop2);
-                    stop1.addBackwardEdge(stop2toStop1);
-
-                    stop2.addForwardEdge(stop2toStop1);
-                    stop2.addBackwardEdge(stop1toStop2);
-
-                    edges.add(stop1toStop2);
-                    edges.add(stop2toStop1);
+                        edges.add(stop1toStop2);
+                    }
                 }
             }
         }
 
-        System.out.println("Number of walking edges added: " + count);
+
+         System.out.println("Number of walking edges added: " + count);
     }
 
     /** 
