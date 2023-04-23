@@ -15,8 +15,6 @@ public class Line {
     private List<Stop> stops;
     private List<Integer> times;
 
-
-
     // constructor used to create and then add stops to the line
     public Line(String lineId) {
         this.lineId = lineId;

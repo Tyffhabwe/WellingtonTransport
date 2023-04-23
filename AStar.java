@@ -5,6 +5,11 @@
  * connect the start node to the goal node.
  */
 
+/** public static List<Edge> findShortestPath(Stop start, Stop goal, String timeOrDistance) {
+ if (start == null || goal == null) {return null;}
+ timeOrDistance= (timeOrDistance.equals("time"))?"time":"distance";
+ */
+
 import java.util.*;
 
 
@@ -12,10 +17,9 @@ public class AStar {
     private static String timeOrDistance = "distance";    // way of calculating cost: "time" or "distance"
 
     // find the shortest path between two stops
-    public static List<Edge> findShortestPath(Stop start, Stop goal, String timeOrDistance) {
-        if (start == null || goal == null) {return null;}
-        timeOrDistance= (timeOrDistance.equals("time"))?"time":"distance";
-        timeOrDistance="time";
+    public static List<Edge> findShortestPath(Stop start, Stop goal, String tOrD) {
+       if (start == null || goal == null) {return null;}
+       timeOrDistance= (tOrD.equals("time"))?"time":"distance";
 
         Map<Stop, Edge> backPointers = new HashMap<Stop, Edge>();
         Queue<PathItem> fringe = new PriorityQueue<PathItem>();
@@ -87,11 +91,15 @@ public class AStar {
 
         ans.add(endEdge);
 
-        while(!nextEdgeToLookUp.transpType().equals("START")) {
-            ans.add(nextEdgeToLookUp);
+        //while(!nextEdgeToLookUp.transpType().equals("START")) {
+        while(nextEdgeToLookUp != null) {
 
+            if(!nextEdgeToLookUp.transpType().equals("START")) {
+                ans.add(nextEdgeToLookUp);
+            }
             Stop nextStop = nextEdgeToLookUp.fromStop();
             nextEdgeToLookUp = backPointers.get(nextStop);
+
 
         }
 
