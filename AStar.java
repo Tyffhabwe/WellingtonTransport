@@ -21,6 +21,10 @@ public class AStar {
        if (start == null || goal == null) {return null;}
        timeOrDistance= (tOrD.equals("time"))?"time":"distance";
 
+       if (start.equals(goal)) {
+           return List.of();
+       }
+
         Map<Stop, Edge> backPointers = new HashMap<Stop, Edge>();
         Queue<PathItem> fringe = new PriorityQueue<PathItem>();
         Set<Stop> visited = new HashSet<Stop>();
@@ -45,20 +49,20 @@ public class AStar {
                     return reconstructPath(start, goal, backPointers);
                 }
 
-                for(Edge nextNode: currentStop.getForwardEdges()) {
-                    Stop neighbourNode = nextNode.toStop();
+                for(Edge nextEdge: currentStop.getForwardEdges()) {
+                    Stop neighbourNode = nextEdge.toStop();
 
                     if(!visited.contains(neighbourNode)) {
-                        double lengthToNeighbour = edgeCost(nextNode);
+                        double lengthToNeighbour = edgeCost(nextEdge);
 
-                        //I wanna add a cost to paths that are on a different edge
+                        //I wanna add a cost to paths that are on a different line
 
                         double heuristicValue = heuristic(neighbourNode, goal);
 
                         double costSoFar = lengthToNeighbour + currentItem.costSoFar();
                         double totalCost = costSoFar + heuristicValue;
 
-                        PathItem newItem = new PathItem(neighbourNode, nextNode, costSoFar, totalCost);
+                        PathItem newItem = new PathItem(neighbourNode, nextEdge, costSoFar, totalCost);
                         fringe.add(newItem);
                     }
                 }
@@ -99,7 +103,6 @@ public class AStar {
             }
             Stop nextStop = nextEdgeToLookUp.fromStop();
             nextEdgeToLookUp = backPointers.get(nextStop);
-
 
         }
 

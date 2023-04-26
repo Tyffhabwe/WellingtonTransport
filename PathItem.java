@@ -34,9 +34,9 @@ public class PathItem implements Comparable<PathItem> {
             return -1;
         }
         else if(this.totalCost() == o.totalCost()) {
-            return 1;
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
 }
